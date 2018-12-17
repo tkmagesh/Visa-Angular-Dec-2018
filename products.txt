@@ -14,6 +14,13 @@ Array methods
 
 
 1. print all the product's id & name (using forEach)
+	products.forEach(product =>  console.log(product.id, product.name));
+
 2. find the stationary products using filter
+	var stationaryProducts = products.filter(product => product.category === 'stationary');
+
 3. create a new array of products with cost discounted by 10% (using map)
+	var discountedProducts = products.map(product => ({ ...product, cost : product.cost * 0.9 }));
+
 4. find the max price from the products (using reduce)
+	var maxPrice = products.reduce((result, product) => result > product.cost ? result : product.cost , 0);
