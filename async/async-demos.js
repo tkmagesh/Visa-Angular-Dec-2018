@@ -33,4 +33,25 @@
 
 	window['addAsyncClient'] = addAsyncClient;
 
+
+
+	var addAsyncEvents = (function(){
+		var callbacks = [];
+		function subscribe(callback){
+			callbacks.push(callback);
+		}
+		function add(x,y){
+			console.log(`	[@addAsyncEvents] processing ${x} and ${y}`);
+			setTimeout(function(){
+				var result = x + y;
+				console.log(`	[@addAsyncEvents] returning the result`);
+				callbacks.forEach(callback => callback(result));
+			}, 4000);
+		}
+
+		return { subscribe, add};
+	})();
+
+	window['addAsyncEvents'] = addAsyncEvents;
+
 })();
