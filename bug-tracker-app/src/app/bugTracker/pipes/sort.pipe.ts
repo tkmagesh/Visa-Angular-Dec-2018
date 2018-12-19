@@ -6,7 +6,7 @@ interface Comparer{
 
 @Pipe({
 	name: 'sort',
-	pure : false
+	pure : true
 })
 export class SortPipe implements PipeTransform {
 	private getComparerFor(attrName : string) : Comparer{

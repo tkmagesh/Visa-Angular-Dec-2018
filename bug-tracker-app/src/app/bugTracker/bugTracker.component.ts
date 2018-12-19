@@ -13,6 +13,8 @@ export class BugTrackerComponent{
 
 	sortByDesc : boolean = false;
 
+	newBugName : string = '';
+
 	/*bugOperations : BugOperationsService;
 
 	constructor(_bugOperations : BugOperationsService){
@@ -25,9 +27,10 @@ export class BugTrackerComponent{
 		this.bugs.push(this.bugOperations.createNew('Data integrity checks failed'));
 	}
 
-	onAddNewClick(bugName : string){
-		let newBug = this.bugOperations.createNew(bugName);
-		this.bugs.push(newBug);
+	onAddNewClick(){
+		let newBug = this.bugOperations.createNew(this.newBugName);
+		this.bugs = [...this.bugs, newBug];
+		this.newBugName = '';
 	}
 
 	onBugNameClick(bugToToggle : Bug){
