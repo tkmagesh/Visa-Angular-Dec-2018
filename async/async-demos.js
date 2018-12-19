@@ -54,4 +54,21 @@
 
 	window['addAsyncEvents'] = addAsyncEvents;
 
+
+	function addAsyncPromise(x,y){
+		console.log(`	[@addAsync] processing ${x} and ${y}`);
+
+		var promise = new Promise(function(resolveFn, rejectFn){
+			setTimeout(function(){
+				var result = x + y;
+				console.log(`	[@addAsync] returning the result`);
+				resolveFn(result);
+			}, 4000);
+		});
+		
+		return promise;
+	}
+
+	window['addAsyncPromise'] = addAsyncPromise;
+
 })();
