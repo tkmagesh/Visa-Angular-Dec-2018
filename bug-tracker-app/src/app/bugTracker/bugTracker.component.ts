@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Bug } from './models/Bug';
 import { BugOperationsService } from './services/bugOperations.service';
 
+
 @Component({
 	selector : 'app-bug-tracker',
 	templateUrl : 'bugTracker.component.html'
@@ -13,7 +14,7 @@ export class BugTrackerComponent{
 
 	sortByDesc : boolean = false;
 
-	newBugName : string = '';
+	
 
 	/*bugOperations : BugOperationsService;
 
@@ -25,10 +26,8 @@ export class BugTrackerComponent{
 		this.bugs = this.bugOperations.getAll();
 	}
 
-	onAddNewClick(){
-		let newBug = this.bugOperations.createNew(this.newBugName);
+	onBugCreated(newBug : Bug){
 		this.bugs = [...this.bugs, newBug];
-		this.newBugName = '';
 	}
 
 	onBugNameClick(bugToToggle : Bug){
