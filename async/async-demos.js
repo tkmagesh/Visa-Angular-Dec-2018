@@ -33,8 +33,6 @@
 
 	window['addAsyncClient'] = addAsyncClient;
 
-
-
 	var addAsyncEvents = (function(){
 		var callbacks = [];
 		function subscribe(callback){
@@ -56,19 +54,33 @@
 
 
 	function addAsyncPromise(x,y){
-		console.log(`	[@addAsync] processing ${x} and ${y}`);
+		console.log(`	[@addAsyncPromise] processing ${x} and ${y}`);
 
 		var promise = new Promise(function(resolveFn, rejectFn){
 			setTimeout(function(){
 				var result = x + y;
-				console.log(`	[@addAsync] returning the result`);
+				console.log(`	[@addAsyncPromise] returning the result`);
 				resolveFn(result);
 			}, 4000);
 		});
-		
+
 		return promise;
 	}
 
-	window['addAsyncPromise'] = addAsyncPromise;
+	/*function addAsyncPromiseClient(x,y){
+		console.log(`[@addSyncPromiseClient] triggering addAsyncPromise`);
+		addAsyncPromise(x,y)
+			.then(function(result){
+				console.log(`[@addSyncPromiseClient] result = ${result}`);		
+			});
+	}*/
+
+	async function addAsyncPromiseClient(x,y){
+		console.log(`[@addSyncPromiseClient] triggering addAsyncPromise`);
+		var result = await addAsyncPromise(x,y)
+		console.log(`[@addSyncPromiseClient] result = ${result}`);		
+	}
+
+	window['addAsyncPromiseClient'] = addAsyncPromiseClient;
 
 })();
