@@ -16,7 +16,8 @@ export class BugOperationsService{
 			id : 0,
 			name : bugName,
 			isClosed : false,
-			createdAt : new Date()
+			createdAt : new Date(),
+			desc: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur aliquam id pariatur ipsa expedita nesciunt doloribus facilis architecto quisquam totam veniam odio, minima, labore deleniti, neque nam quia amet eveniet.'
 		};
 		return this.bugStorage.save(newBugData);
 	}
