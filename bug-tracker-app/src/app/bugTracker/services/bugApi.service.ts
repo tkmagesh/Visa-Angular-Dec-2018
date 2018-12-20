@@ -1,28 +1,30 @@
+import { Injectable } from '@angular/core';
 import { Bug } from '../models/Bug';
-import axios from 'axios';
+import { HttpClient} from '@angular/common/http';
+import { Observable } from 'rxjs';
 
+@Injectable()
 export class BugApiService{
 	private serviceEndPoint = 'http://localhost:3000/bugs';
 
-	getAll() : Promise<Bug[]>{
-		return axios
-			.get(this.serviceEndPoint)
-			.then(response => response.data);
+	constructor(private http : HttpClient){
+
 	}
-	save(bugData : Bug) : Promise<Bug>{
+	getAll() : Observable<Bug[]>{
+		return this.http
+			.get<Bug[]>(this.serviceEndPoint)
+	}
+	save(bugData : Bug) : Observable<Bug>{
 		if (bugData.id === 0){
-			return axios
-				.post(this.serviceEndPoint, bugData)
-				.then(response => response.data)
+			return this.http
+				.post<Bug>(this.serviceEndPoint, bugData)
 		} else {
-			return axios
-				.put(`${this.serviceEndPoint}/${bugData.id}`, bugData)
-				.then(response => response.data);
+			return this.http
+				.put<Bug>(`${this.serviceEndPoint}/${bugData.id}`, bugData)
 		}
 	}
-	remove(bugData : Bug) : Promise<any>{
-		return axios
-				.delete(`${this.serviceEndPoint}/${bugData.id}`)
-				.then(response => response.data);
+	remove(bugData : Bug) : Observable<any>{
+		return this.http
+				.delete<any>(`${this.serviceEndPoint}/${bugData.id}`)
 	}
 }
