@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Bug } from './models/Bug';
 import { BugOperationsService } from './services/bugOperations.service';
 
@@ -7,7 +7,7 @@ import { BugOperationsService } from './services/bugOperations.service';
 	selector : 'app-bug-tracker',
 	templateUrl : 'bugTracker.component.html'
 })
-export class BugTrackerComponent{
+export class BugTrackerComponent implements OnInit{
 	bugs : Bug[] = [];
 
 	sortAttrName : string = '';
@@ -23,31 +23,31 @@ export class BugTrackerComponent{
 	}*/
 
 	constructor(private bugOperations : BugOperationsService){
-		this.bugOperations
-			.getAll()
-			.then(bugs => this.bugs = bugs);
+		
+	}
+
+	async ngOnInit(){
+		this.bugs = await this.bugOperations.getAll();
 	}
 
 	onBugCreated(newBug : Bug){
 		this.bugs = [...this.bugs, newBug];
 	}
 
-	onBugNameClick(bugToToggle : Bug){
+	async onBugNameClick(bugToToggle : Bug){
 		//this.bugOperations.toggle(bugToToggle);
-		this.bugOperations
-			.toggle(bugToToggle)
-			.then(toggledBug => 
-				this.bugs = this.bugs.map(bug => bug === bugToToggle ? toggledBug : bug))
+		let toggledBug = await this.bugOperations.toggle(bugToToggle);
+		this.bugs = this.bugs.map(bug => bug === bugToToggle ? toggledBug : bug);
 		
 	}
 
 	onRemoveClosedClick(){
 		this.bugs
 			.filter(bug => bug.isClosed)
-			.forEach(closedBug => 
-				this.bugOperations
-					.remove(closedBug)
-					.then(() => this.bugs = this.bugs.filter(bug => bug !== closedBug)));
+			.forEach(async closedBug => {
+				await this.bugOperations.remove(closedBug)
+				this.bugs = this.bugs.filter(bug => bug !== closedBug);
+			});
 		
 	}
 }
