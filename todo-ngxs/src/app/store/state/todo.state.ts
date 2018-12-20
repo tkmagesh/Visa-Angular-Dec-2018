@@ -54,7 +54,9 @@ export class TodoState {
   }
 
   @Action(AddTodo)
-  add({getState, patchState}: StateContext<TodoStateModel>, {payload}: AddTodo) {
+  add(stateContext : StateContext<TodoStateModel>, {payload}: AddTodo) {
+    console.log(stateContext);
+    let {getState, patchState} = stateContext;
     patchState({
       todos: [...getState().todos, {id: Math.random(), text: payload, completed: false}]
     });
