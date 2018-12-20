@@ -4,6 +4,8 @@ import { TrimTextPipe } from './pipes/trimText.pipe';
 import { SortPipe } from './pipes/sort.pipe';
 import { ElapsedPipe } from './pipes/elapsed.pipe';
 
+import { SocketService } from './services/socket.service';
+
 const ALL_PIPES = [
 		TrimTextPipe
 	    , SortPipe
@@ -14,7 +16,9 @@ const ALL_PIPES = [
 	declarations :ALL_PIPES,
 	exports : ALL_PIPES,
 	imports : [],
-	providers : []
+	providers : [
+		SocketService
+	]
 })
 export class UtilsModule{
 
